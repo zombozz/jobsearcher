@@ -1,2 +1,2 @@
 ## Overview
-jobsearch platform
+Jobsearch platform similar to indeed and seek
