@@ -22,8 +22,8 @@ const Search = () => {
 
 
   return (
-    <section className="w-full border border-b-2 flex justify-center align-middle py-10">
-      <div className="flex flex-row gap-4">
+    <section className="border-b-2 flex justify-center align-middle py-4 md:py-10 bg-red-400 sticky mt-16 z-10">
+      <div className="flex flex-col md:flex-row gap-2 md:gap-4">
         <div className="input input-bordered flex join-horizontal">
           <FaSearch className="w-5 h-5 text-gray-500 my-auto mr-2" />
           <input
