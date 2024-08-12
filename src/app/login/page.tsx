@@ -25,7 +25,7 @@ const SignInPage = () => {
           email: user.email,
           displayName: user.displayName,
         }));
-        setLoginStatus(`Successfully logged in as ${email}`)
+        setLoginStatus(`Successfully logged in as ${user.displayName}`)
         setTimeout(function() {
             router.push('/');
         }, 2000)
