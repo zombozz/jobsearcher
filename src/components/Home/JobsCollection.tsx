@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import useSWR from 'swr';
 
 interface Job {
-  job_id: number; // Ensure job_id is included
+  job_id: number;
   title: string;
   company: string;
-  location: string;
+  locations: string;
   pay: string;
   description: string;
 }
@@ -15,7 +15,7 @@ const fetcher = async (url: string): Promise<Job[]> => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  return response.json(); // Ensure response.json() is called on a valid response
+  return response.json();
 };
 
 const JobsCollection = () => {
@@ -33,7 +33,7 @@ const JobsCollection = () => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className='min-w-full bg-red-800 mx-auto md:px-72 flex gap-20'>
+    <div className='min-w-full bg-red-800 mx-auto lg:px-20 2xl:px-72 flex gap-20'>
       <div className='md:w-1/3 bg-blue-400 cursor-pointer mb-20'>
         {data.map((job) => (
           <div
@@ -42,7 +42,7 @@ const JobsCollection = () => {
             className='my-10  bg-white p-4 border-2  border-gray-400 card h-56'>
             <h3 className='text-xl font-bold'>{job.title}</h3>
             <p className='text-sm'>{job.company}</p>
-            <p className='text-sm'>{job.location}</p>
+            <p className='text-sm'>{job.locations}</p>
             <p className='text-sm border border-w-2 bg-gray-300 mb-3 mt-1 py-1 px-1 rounded-md w-max'>{job.pay}</p>
             <p className='text-sm overflow-hidden'>{job.description}</p>
           </div>
@@ -55,7 +55,7 @@ const JobsCollection = () => {
             <>
               <h3 className='text-xl font-bold'>{job.title}</h3>
               <p className='text-sm'>{job.company}</p>
-              <p className='text-sm'>{job.location}</p>
+              <p className='text-sm'>{job.locations}</p>
               <p className='text-sm border border-w-2 bg-gray-300 mb-3 mt-1 py-1 px-1 rounded-md w-max'>{job.pay}</p>
               <p className='text-sm overflow-hidden'>{job.description}</p>
             </>
