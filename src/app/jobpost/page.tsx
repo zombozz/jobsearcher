@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useLocalStorageUser } from '@/components/useLocalStorageUser';
 import Navbar from '@/components/Navbar';
 
-const page = () => {
+const Page = () => {
   const [title, setTitle] = useState("")
   const [company, setCompany] = useState("")
   const [city, setCity] = useState("")
@@ -153,4 +153,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
