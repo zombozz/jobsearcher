@@ -11,7 +11,6 @@ const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  const [signInSuccess, setSignInSuccess] = useState(false);
   const [error, setError] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
   const router = useRouter();

@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { useLocalStorageUser } from '@/components/useLocalStorageUser';
 import Navbar from '@/components/Navbar';
 
 const Page = () => {
@@ -16,7 +15,7 @@ const Page = () => {
   const [messageType, setMessageType] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const user = useLocalStorageUser();
+
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('user'));
   }, []);
