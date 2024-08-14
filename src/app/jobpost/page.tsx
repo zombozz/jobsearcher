@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalStorageUser } from '@/components/useLocalStorageUser';
 import Navbar from '@/components/Navbar';
 
@@ -14,10 +14,12 @@ const Page = () => {
   const [description, setDescription] = useState("")
   const [message, setMessage] = useState("")
   const [messageType, setMessageType] = useState("")
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const user = useLocalStorageUser();
-  const isLoggedIn = localStorage.getItem('user')
-
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('user'));
+  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -43,7 +45,6 @@ const Page = () => {
       if (response.ok) {
         setMessage('Job posted successfully!')
         setMessageType('success')
-        // Redirect after 2 seconds to allow the message to be displayed
         setTimeout(() => window.location.href = '/', 2000)
       } else {
         setMessage('Failed to post job')
