@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar';
 
+
 const Page = () => {
   const [title, setTitle] = useState("")
   const [company, setCompany] = useState("")
@@ -23,11 +24,12 @@ const Page = () => {
     e.preventDefault()
 
     const formattedPay = `$${pay} ${frequency}`
-    const locations = `${city}, ${suburb}`
+    const location = `${city}, ${suburb}`
+    console.log(location)
     const jobData = {
       title,
       company,
-      locations,
+      location,
       pay: formattedPay,
       description
     }

@@ -7,7 +7,7 @@ interface Job {
   job_id: number;
   title: string;
   company: string;
-  locations: string;
+  location: string;
   pay: string;
   description: string;
 }
@@ -44,7 +44,7 @@ const JobsCollection = () => {
             className='my-10  bg-white p-4 border-2  border-gray-400 card h-56'>
             <h3 className='text-xl font-bold'>{job.title}</h3>
             <p className='text-sm'>{job.company}</p>
-            <p className='text-sm'>{job.locations}</p>
+            <p className='text-sm'>{job.location}</p>
             <p className='text-sm border border-w-2 bg-gray-300 mb-3 mt-1 py-1 px-1 rounded-md w-max'>{job.pay}</p>
             <p className='text-sm overflow-hidden'>{job.description}</p>
           </div>
@@ -57,7 +57,7 @@ const JobsCollection = () => {
             <>
               <h3 className='text-xl font-bold'>{job.title}</h3>
               <p className='text-sm'>{job.company}</p>
-              <p className='text-sm'>{job.locations}</p>
+              <p className='text-sm'>{job.location}</p>
               <p className='text-sm border border-w-2 bg-gray-300 mb-3 mt-1 py-1 px-1 rounded-md w-max'>{job.pay}</p>
               <p className='text-sm overflow-hidden'>{job.description}</p>
             </>

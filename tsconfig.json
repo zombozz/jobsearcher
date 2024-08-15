@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/db.js"
-  ],
+, "src/utils/auth.js"  ],
   "exclude": [
     "node_modules"
   ]

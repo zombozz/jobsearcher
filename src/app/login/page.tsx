@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from '../../firebaseConfig';
 import Navbar from '@/components/Navbar';
+import { supabase } from '@/lib/supabaseClient';
+
+
 
 const provider = new GoogleAuthProvider();
 
@@ -34,25 +37,59 @@ const SignInPage = () => {
     }
   };
 
+  // const handleEmailPasswordAuth = async () => {
+  //   try {
+  //     if (isRegistering) {
+  //       await createUserWithEmailAndPassword(auth, email, password);
+  //       setLoginStatus(`Successfully registered as ${email}`)
+  //     } else {
+  //       await signInWithEmailAndPassword(auth, email, password);
+  //       setLoginStatus(`Successfully logged in as ${email}`)
+  //     }
+  //     localStorage.setItem('user', JSON.stringify({ email }));
+  //     setTimeout(function() {
+  //       router.push('/');
+  //     }, 2000)
+  //   } catch (error) {
+  //       const errorMessage = (error as Error).message || 'An unknown error occurred';
+  //       console.error(isRegistering ? 'Error registering:' : 'Error signing in:', errorMessage);
+  //       setError(errorMessage);
+  //   }
+  // };
   const handleEmailPasswordAuth = async () => {
     try {
+      let response;
+
       if (isRegistering) {
-        await createUserWithEmailAndPassword(auth, email, password);
-        setLoginStatus(`Successfully registered as ${email}`)
+        response = await supabase.auth.signUp({
+          email,
+          password,
+        });
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        setLoginStatus(`Successfully logged in as ${email}`)
+        response = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
       }
-      localStorage.setItem('user', JSON.stringify({ email }));
-      setTimeout(function() {
-        router.push('/');
-      }, 2000)
+
+      if (response.error) {
+        throw response.error;
+      }
+
+      if (response.data.user) {
+        setLoginStatus(`Successfully ${isRegistering ? 'registered' : 'logged in'} as ${email}`);
+        localStorage.setItem('user', JSON.stringify({ email }));
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+      }
     } catch (error) {
-        const errorMessage = (error as Error).message || 'An unknown error occurred';
-        console.error(isRegistering ? 'Error registering:' : 'Error signing in:', errorMessage);
-        setError(errorMessage);
+      const errorMessage = (error as Error).message || 'An unknown error occurred';
+      console.error(isRegistering ? 'Error registering:' : 'Error signing in:', errorMessage);
+      setError(errorMessage);
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col">
