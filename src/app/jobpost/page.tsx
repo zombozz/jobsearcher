@@ -1,38 +1,55 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
-
+import { supabase } from '@/lib/supabaseClient'; // Adjust the import according to your file structure
 
 const Page = () => {
-  const [title, setTitle] = useState("")
-  const [company, setCompany] = useState("")
-  const [city, setCity] = useState("")
-  const [suburb, setSuburb] = useState("")
-  const [pay, setPay] = useState("")
-  const [frequency, setFrequency] = useState("Per Hour")
-  const [description, setDescription] = useState("")
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("")
+  const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [city, setCity] = useState("");
+  const [suburb, setSuburb] = useState("");
+  const [pay, setPay] = useState("");
+  const [frequency, setFrequency] = useState("Per Hour");
+  const [description, setDescription] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem('user'));
-  }, []);
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    const checkLoginStatus = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setIsLoggedIn(true);
+        setUserEmail(user.email || null);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
 
-    const formattedPay = `$${pay} ${frequency}`
-    const location = `${city}, ${suburb}`
-    console.log(location)
+    checkLoginStatus();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!userEmail) {
+      setMessage('User is not authenticated.');
+      setMessageType('error');
+      return;
+    }
+
+    const formattedPay = `$${pay} ${frequency}`;
+    const location = `${city}, ${suburb}`;
     const jobData = {
       title,
       company,
       location,
       pay: formattedPay,
-      description
-    }
+      description,
+      poster_email: userEmail, // Include user's email
+    };
 
     try {
       const response = await fetch('/api/jobs', {
@@ -44,23 +61,23 @@ const Page = () => {
       });
 
       if (response.ok) {
-        setMessage('Job posted successfully!')
-        setMessageType('success')
-        setTimeout(() => window.location.href = '/', 2000)
+        setMessage('Job posted successfully!');
+        setMessageType('success');
+        setTimeout(() => (window.location.href = '/'), 2000);
       } else {
-        setMessage('Failed to post job')
-        setMessageType('error')
+        setMessage('Failed to post job');
+        setMessageType('error');
       }
     } catch (error) {
-      setMessage('Error: Unable to post job')
-      setMessageType('error')
+      setMessage('Error: Unable to post job');
+      setMessageType('error');
     }
-  }
+  };
 
   return (
     <div>
       <Navbar />
-        {isLoggedIn ? (
+      {isLoggedIn ? (
         <div className="h-auto mt-32 md:mt-48 text-center mx-auto">
           <h1 className='text-2xl font-bold'>Post a Job</h1>
           {message && (
@@ -85,7 +102,6 @@ const Page = () => {
               onChange={(e) => setCompany(e.target.value)}
               required
             />
-
             <div className="flex gap-2">
               <input 
                 type='text' 
@@ -104,7 +120,6 @@ const Page = () => {
                 required
               />
             </div>
-
             <div className="flex items-center gap-2">
               <div className="flex items-center input input-bordered gap-2 w-1/2">
                 <h2 className='text-base'>$</h2>
@@ -117,7 +132,6 @@ const Page = () => {
                   required
                 />
               </div>
-              {/* <div className="dropdown w-1/2"> */}
               <div className="w-1/2">
                 <div 
                   tabIndex={0} 
@@ -127,14 +141,8 @@ const Page = () => {
                 >
                   {frequency}
                 </div>
-                {/* <ul className='menu dropdown-content'>
-                  <li><a onClick={() => setFrequency("Per Hour")}>Per Hour</a></li>
-                  <li><a onClick={() => setFrequency("Per Week")}>Per Week</a></li>
-                  <li><a onClick={() => setFrequency("Per Annum")}>Per Annum</a></li>
-                </ul> */}
               </div>
             </div>
-            
             <textarea 
               name="description"
               placeholder="Description" 
@@ -146,13 +154,13 @@ const Page = () => {
             <button type="submit" className='btn btn-primary'>Post Job</button>
           </form>
         </div>
-        ) : (
-          <div className="h-auto mt-32 md:mt-48 text-center mx-auto">
-            <h1 className='text-xl'>You must be <a href='/login' className='text-blue-500 underline'>logged in</a> to post a job.</h1>
-          </div>
-        )}
+      ) : (
+        <div className="h-auto mt-32 md:mt-48 text-center mx-auto">
+          <h1 className='text-xl'>You must be <a href='/login' className='text-blue-500 underline'>logged in</a> to post a job.</h1>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

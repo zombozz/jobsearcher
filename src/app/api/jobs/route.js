@@ -28,11 +28,11 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { title, company, location, pay, description } = data;
+    const { title, company, location, pay, description, poster_email } = data;
 
     const { error } = await supabase
       .from('Jobs')
-      .insert([{ title, company, location, pay, description }]);
+      .insert([{ title, company, location, pay, description, poster_email }]);
 
     if (error) {
       throw error;
