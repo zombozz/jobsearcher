@@ -9,7 +9,7 @@ const GoToSearch = () => {
   const goToSearch = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Enables smooth scrolling
+      behavior: 'smooth'
     });
     setIsVisibleGTS(false)
   }

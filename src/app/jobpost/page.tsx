@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
-import { supabase } from '@/lib/supabaseClient'; // Adjust the import according to your file structure
+import { supabase } from '@/lib/supabaseClient';
 
 const Page = () => {
   const [title, setTitle] = useState("");
@@ -30,6 +30,13 @@ const Page = () => {
 
     checkLoginStatus();
   }, []);
+
+  // Log the userEmail when it changes
+  useEffect(() => {
+    if (userEmail) {
+      console.log('User Email:', userEmail);
+    }
+  }, [userEmail]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

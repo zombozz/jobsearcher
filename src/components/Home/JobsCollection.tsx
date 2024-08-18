@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 
@@ -21,6 +21,7 @@ const fetcher = async (url: string): Promise<Job[]> => {
 };
 
 const JobsCollection = () => {
+  const router = useRouter();
   const { data, error } = useSWR<Job[]>('/api/jobs', fetcher);
   const [selectedJobId, setSelectedJobId] = useState<number | null>(1);
   const [initialLoad, setInitialLoad] = useState(true);
@@ -54,6 +55,7 @@ const JobsCollection = () => {
 
   const handleApply = (job_id: number) => {
     console.log(`Applied for job id: ${job_id}`);
+    router.push(`/apply?job_id=${job_id}`);
   };
 
   if (error) return <div>Failed to load</div>;

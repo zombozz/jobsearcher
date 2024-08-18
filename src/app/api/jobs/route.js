@@ -10,7 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export async function GET() {
   try {
     const { data, error } = await supabase
-      .from('Jobs')
+      .from('jobs')
       .select('*');
 
     if (error) {
@@ -31,7 +31,7 @@ export async function POST(request) {
     const { title, company, location, pay, description, poster_email } = data;
 
     const { error } = await supabase
-      .from('Jobs')
+      .from('jobs')
       .insert([{ title, company, location, pay, description, poster_email }]);
 
     if (error) {
