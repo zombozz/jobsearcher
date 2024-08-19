@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 
@@ -92,6 +92,7 @@ const ApplyPage = () => {
   };
 
   return (
+    <Suspense>
     <div>
       <Navbar />
       <div className="h-auto mt-32 md:mt-48 text-center mx-auto">
@@ -136,6 +137,7 @@ const ApplyPage = () => {
         )}
       </div>
     </div>
+    </Suspense>
   );
 };
 
