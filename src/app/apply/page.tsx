@@ -14,6 +14,7 @@ interface Job {
   poster_email: string;
 }
 
+
 const ApplyPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
