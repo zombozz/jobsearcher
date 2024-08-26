@@ -7,11 +7,17 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const jobQuery = searchParams.get('job') || '';
+    const locationQuery = searchParams.get('location') || '';
+
     const { data, error } = await supabase
       .from('jobs')
-      .select('*');
+      .select('*')
+      .ilike('title', `%${jobQuery}%`)
+      .ilike('location', `%${locationQuery}%`);
 
     if (error) {
       throw error;
@@ -24,6 +30,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
   }
 }
+
 
 export async function POST(request) {
   try {

@@ -1,5 +1,6 @@
 "use client";
-import { useRouter } from 'next/navigation';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 
@@ -22,7 +23,12 @@ const fetcher = async (url: string): Promise<Job[]> => {
 
 const JobsCollection = () => {
   const router = useRouter();
-  const { data, error } = useSWR<Job[]>('/api/jobs', fetcher);
+  const searchParams = useSearchParams();
+  const jobQuery = searchParams.get('job');
+  const locationQuery = searchParams.get('location');
+
+  const { data, error } = useSWR<Job[]>(`/api/jobs?job=${jobQuery || ''}&location=${locationQuery || ''}`, fetcher);
+
   const [selectedJobId, setSelectedJobId] = useState<number | null>(1);
   const [initialLoad, setInitialLoad] = useState(true);
   const [isMobileView, setIsMobileView] = useState<boolean>(false);
@@ -59,11 +65,10 @@ const JobsCollection = () => {
   };
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <div className='w-full h-full flex justify-center mt-20'><span className="loading loading-spinner loading-lg"></span></div>;
 
   return (
     <div className='min-w-full mx-auto lg:px-20 2xl:px-72 flex gap-20'>
-      {/* Mobile View */}
       {!initialLoad && isMobileView && job && (
         <div className='fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 z-50 p-4'>
           <div className='bg-white p-6 rounded-lg relative h-full'>
@@ -90,7 +95,6 @@ const JobsCollection = () => {
         </div>
       )}
 
-      {/* Desktop View */}
       <div className='md:w-1/3'>
         {data.map((job) => (
           <div
