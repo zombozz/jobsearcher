@@ -137,7 +137,7 @@ const MyPostedJobsPage = () => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
-              <p>Are you sure you want to delete the job "{confirmDelete.title}"?</p>
+              <p>Are you sure you want to delete the job: {confirmDelete.title}?</p>
               <div className="mt-4">
                 <button
                   onClick={() => handleDelete(confirmDelete.job_id)}
