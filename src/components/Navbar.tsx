@@ -33,6 +33,13 @@ const Navbar = () => {
     }
   };
 
+  const buttonConfigs = [
+    { label: 'Log Out', action: handleLogout},
+    // { label: 'My Applications', action: () => {router.push('/myapplications')}},
+    { label: 'View Applicants', action: () => {router.push('/viewapplicants')}},
+    { label: 'View Posted Jobs', action: () => {router.push('/mypostedjobs')}},
+  ];
+
   return (
     <nav className="navbar-center border-b-2 bg-white w-screen fixed z-20 top-0">
       <div className="container mx-auto px-4 py-2">
@@ -40,7 +47,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="text-xl font-bold">
             <Link href="/" className="text-primary">
-              MySite NAME
+              MyJobs
             </Link>
           </div>
 
@@ -86,12 +93,14 @@ const Navbar = () => {
                 </button>
                 {showLogoutPopup && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200">
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                    {buttonConfigs.map(({ label, action}, index) => (
+                    <button key={index}
+                      onClick={action}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     >
-                      Log Out
+                      {label}
                     </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -111,7 +120,7 @@ const Navbar = () => {
           <Link
             key={index}
             href={link.href}
-            className={`block px-4 py-2 text-primary ${index < navLinks.length - 1 ? 'border-b border-base-300' : ''}`}
+            className={`block px-4 py-2 ${index < navLinks.length - 1 ? 'border-b border-base-300' : ''}`}
           >
             {link.label}
           </Link>
@@ -120,18 +129,20 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={() => setShowLogoutPopup(!showLogoutPopup)}
-              className="block px-4 py-2 text-primary w-full text-left"
+              className="block px-4 py-2 w-full text-left"
             >
               {user.email}
             </button>
             {showLogoutPopup && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200">
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
-                >
-                  Log Out
-                </button>
+                  {buttonConfigs.map(({ label, action}, index) => (
+                    <button key={index}
+                      onClick={action}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      {label}
+                    </button>
+                  ))}
               </div>
             )}
           </div>
