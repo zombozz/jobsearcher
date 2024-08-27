@@ -5,8 +5,6 @@ import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 import { useLocalStorageUser } from './useLocalStorageUser';
 import { useRouter } from 'next/navigation';
-import { signOut } from "firebase/auth";
-import { auth } from '@/firebaseConfig';
 
 // Configurable links
 const navLinks = [
@@ -25,7 +23,6 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
       localStorage.removeItem('user');
       router.push('/login');
     } catch (error) {
@@ -41,7 +38,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar-center border-b-2 bg-white w-screen fixed z-20 top-0">
+    <nav className="navbar-center border-b-2 border-base-100 bg-base-100 w-screen fixed z-20 top-0">
       <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -92,7 +89,7 @@ const Navbar = () => {
                   {user.email}
                 </button>
                 {showLogoutPopup && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200">
+                  <div className="absolute right-0 mt-2 w-48 bg-base-100 shadow-lg rounded-lg border border-base-100">
                     {buttonConfigs.map(({ label, action}, index) => (
                     <button key={index}
                       onClick={action}
@@ -105,7 +102,7 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Link href="/login" className="btn btn-ghost">
+              <Link href="/login" className="btn btn-ghost bg-base-100">
                 Login/Register
               </Link>
             )}
@@ -115,7 +112,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Dropdown Menu */}
-      <div className={`lg:hidden ${isOpen ? 'block' : 'hidden'} bg-base-200`}>
+      <div className={`lg:hidden ${isOpen ? 'block' : 'hidden'} bg-base-100`}>
         {navLinks.map((link, index) => (
           <Link
             key={index}
@@ -134,7 +131,7 @@ const Navbar = () => {
               {user.email}
             </button>
             {showLogoutPopup && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200">
+              <div className="absolute right-0 mt-2 w-48 bg-base-100 shadow-lg rounded-lg border border-gray-200">
                   {buttonConfigs.map(({ label, action}, index) => (
                     <button key={index}
                       onClick={action}

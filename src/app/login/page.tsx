@@ -1,14 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from '../../firebaseConfig';
 import Navbar from '@/components/Navbar';
 import { supabase } from '@/lib/supabaseClient';
-
-
-
-const provider = new GoogleAuthProvider();
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
@@ -19,22 +13,7 @@ const SignInPage = () => {
   const router = useRouter();
 
   const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      if (user) {
-        localStorage.setItem('user', JSON.stringify({
-          email: user.email,
-          displayName: user.displayName,
-        }));
-        setLoginStatus(`Successfully logged in as ${user.displayName}`)
-        setTimeout(function() {
-            router.push('/');
-        }, 2000)
-      }
-    } catch (error) {
-      console.error('Error signing in with Google:', error);
-    }
+
   };
 
   // const handleEmailPasswordAuth = async () => {

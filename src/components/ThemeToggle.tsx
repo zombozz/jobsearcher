@@ -8,19 +8,21 @@ const ThemeToggle = () => {
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
+      setIsDarkMode(savedTheme === 'light');
     } else {
       setIsDarkMode(false);
     }
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'mytheme');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'mytheme');
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
   const toggleTheme = () => {
     setIsDarkMode(prev => !prev);
+    const savedTheme = localStorage.getItem('theme');
+    console.log(savedTheme)
   };
 
   return (

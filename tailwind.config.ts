@@ -13,28 +13,33 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      // colors: {
+      //   'paybtn' : 'grey',
+      // }
     },
   },
 daisyui: {
     themes: [
       {
-        mytheme: {
-          primary: '#F15A5A', // Custom primary color
-          secondary: '#d4a5a5', // Example secondary color
-          accent: '#f6c6c6', // Example accent color
-          neutral: '#2a2a2a', // Example neutral color
-          'base-100': '#ffffff', // Example base color
+        light: {
+          primary: '#F15A5A',
+          secondary: '#d4a5a5',
+          accent: '#f6c6c6',
+          neutral: '#2a2a2a',
+          'base-100' : '#ffffff',
+          'base-200' : '#d9d9d9',
         },
       },
       'light',
       'dark',
       {
         dark: {
-          primary: '#F15A5A', // Custom primary color for dark theme
-          secondary: '#d4a5a5', // Example secondary color for dark theme
-          accent: '#f6c6c6', // Example accent color for dark theme
-          neutral: '#2a2a2a', // Example neutral color for dark theme
-          'base-100': '#1a1a1a', // Example base color for dark theme
+          primary: '#F15A5A',
+          secondary: '#d4a5a5',
+          accent: '#f6c6c6',
+          neutral: '#2a2a2a',
+          'base-100' : '#1a1a1a',
+          'base-200' : '#141414',
         },
       },
     ],

@@ -35,7 +35,7 @@ const GoToSearch = () => {
     }`} 
     onClick={goToSearch}
     >
-      <button className='w-7/8 bg-white py-3 my-2 px-12 border border-gray-400 rounded-3xl'>Go to search</button>
+      <button className='w-7/8 bg-base-100 py-3 my-2 px-12 border border-gray-400 rounded-3xl'>Go to search</button>
     </div>
   )
 }
