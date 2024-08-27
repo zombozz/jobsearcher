@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Search from "@/components/Home/Search";
 import JobsCollection from "@/components/Home/JobsCollection";
 import GoToSearch from "@/components/Home/GoToSearch";
+import Footer from "@/components/Footer";
+
 
 export default function Home() {
   return (
@@ -17,7 +19,7 @@ export default function Home() {
           <JobsCollection />
         </div>
         <GoToSearch />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </main>
   );

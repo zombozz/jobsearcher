@@ -44,7 +44,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="text-xl font-bold">
             <Link href="/" className="text-primary">
-              MyJobs
+              workwave.
             </Link>
           </div>
 

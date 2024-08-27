@@ -62,7 +62,7 @@ const MyPostedJobsPage = () => {
       if (response.ok) {
         setMessage('Job deleted successfully!');
         setMessageType('success');
-        setJobs(jobs.filter(job => job.job_id !== job_id)); // Remove the deleted job from the list
+        setJobs(jobs.filter(job => job.job_id !== job_id));
       } else {
         setMessage('Failed to delete job');
         setMessageType('error');
@@ -72,6 +72,7 @@ const MyPostedJobsPage = () => {
       setMessage('Error: Unable to delete job');
       setMessageType('error');
     }
+    setConfirmDelete(null);
   };
 
   const handleConfirmDelete = (job: Job) => {
@@ -135,7 +136,7 @@ const MyPostedJobsPage = () => {
         {/* Confirmation Modal */}
         {confirmDelete && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="bg-base-100 p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
               <p>Are you sure you want to delete the job: {confirmDelete.title}?</p>
               <div className="mt-4">

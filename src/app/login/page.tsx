@@ -74,7 +74,7 @@ const SignInPage = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow flex items-center justify-center bg-base-100 pb-20">
-        <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-md w-full p-6 bg-base-100 shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-center mb-6">
             {loginStatus}
           </h1>
@@ -114,14 +114,14 @@ const SignInPage = () => {
               {isRegistering ? 'Register' : 'Sign In'}
             </button>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <button
                 onClick={handleGoogleSignIn}
                 className="btn btn-primary w-full mb-4"
               >
                 Sign In with Google
               </button>
-            </div>
+            </div> */}
 
             <div className="text-center">
               <button

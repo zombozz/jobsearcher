@@ -19,8 +19,10 @@ const Page = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
+      // const { data: { user } } = await supabase.auth.getUser();
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
         setIsLoggedIn(true);
         setUserEmail(user.email || null);
       } else {
@@ -31,7 +33,6 @@ const Page = () => {
     checkLoginStatus();
   }, []);
 
-  // Log the userEmail when it changes
   useEffect(() => {
     if (userEmail) {
       console.log('User Email:', userEmail);
